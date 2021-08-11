@@ -9,15 +9,25 @@ func Sum(numbers []int) int {
 }
 
 func SumAll(numbersToSum ...[]int) []int {
-	// Stores the length of the array numbersToSum
-	lengthOfNumbers := len(numbersToSum)
-	// Creates an array with the size of lengthOfNumbers
-	sums := make([]int, lengthOfNumbers)
+	var sums []int
 
-	// Stores the array inside numbers
-	// Allocates the result of Sum(numbers) into the respective sums index
-	for i, numbers := range numbersToSum {
-		sums[i] = Sum(numbers)
+	for _, numbers := range numbersToSum {
+		sums = append(sums, Sum(numbers))
+	}
+
+	return sums
+}
+
+func SumAllTails(numbersToSum ...[]int) []int {
+	var sums []int
+
+	for _, numbers := range numbersToSum {
+		if (len(numbers) == 0) {
+			sums = append(sums, 0)
+		} else {
+			tail := numbers[1:]
+			sums = append(sums, Sum(tail))
+		}
 	}
 
 	return sums
